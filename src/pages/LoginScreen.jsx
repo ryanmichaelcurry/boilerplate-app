@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Context as AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 export function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { state, signin } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -36,7 +36,7 @@ export function LoginScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={() => {
-            signin(email, password);
+            signIn({email, password});
           }}
           style={styles.button}
         >
