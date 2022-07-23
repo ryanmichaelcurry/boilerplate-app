@@ -1,6 +1,7 @@
 
 import * as React from "react";
 import { StyleSheet, Text, View } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 // Navigation
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -148,8 +149,6 @@ export default function App({ navigation }) {
           service_secret: "test"
         }
 
-        console.log(payload);
-
         const options = {
           method: 'POST',
           headers: {
@@ -167,10 +166,16 @@ export default function App({ navigation }) {
           })
         
           .then((data) => {
+        
+            // Convert to an Object
+            data = JSON.parse(data);
+            console.log(data.accessToken);
             
-            // TODO: secure store
-            console.log(data);
-            dispatch({ type: 'SIGN_IN', token: 'sex' });
+            // TODO: SecureStore
+            SecureStore.setItemAsync("accessToken", data.accessToken);
+            SecureStore.setItemAsync("refreshToken", data.refreshToken);
+
+            dispatch({ type: 'SIGN_IN', token: data.accessToken });
             
           })
         
