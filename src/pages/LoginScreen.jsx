@@ -23,12 +23,14 @@ export function LoginScreen({ navigation }) {
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
+          autoCapitalize="none"
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
+          autoCapitalize="none"
           secureTextEntry
         />
       </View>

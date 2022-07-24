@@ -7,28 +7,38 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Context as AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 export function RegisterScreen({ navigation }) {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { state, signin } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-			<Text style={styles.headerText}>Login</Text>
+			<Text style={styles.headerText}>Create an Account</Text>
       <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+          style={styles.input}
+          autoCapitalize="none"
+        />
         <TextInput
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
+          autoCapitalize="none"
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
+          autoCapitalize="none"
           secureTextEntry
         />
       </View>
@@ -36,24 +46,25 @@ export function RegisterScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={() => {
-            signin(email, password);
+            signUp({username, email, password});
           }}
           style={styles.button}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Register");
+            navigation.navigate("Login");
           }}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Login</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
