@@ -9,18 +9,25 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
+// Styling
+import { useTheme } from "@react-navigation/native";
+import { useStyles } from "../styles";
+
 export function RegisterScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signUp } = useContext(AuthContext);
 
+  const styles = useStyles(useTheme());
+
   return (
-    <View style={styles.container}>
-			<Text style={styles.headerText}>Create an Account</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={styles.h1}>Register</Text>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Username"
+          placeholderTextColor={styles.colors.text}
           value={username}
           onChangeText={(text) => setUsername(text)}
           style={styles.input}
@@ -28,6 +35,7 @@ export function RegisterScreen({ navigation }) {
         />
         <TextInput
           placeholder="Email"
+          placeholderTextColor={styles.colors.text}
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
@@ -35,6 +43,7 @@ export function RegisterScreen({ navigation }) {
         />
         <TextInput
           placeholder="Password"
+          placeholderTextColor={styles.colors.text}
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
@@ -46,9 +55,9 @@ export function RegisterScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={() => {
-            signUp({username, email, password});
+            signUp({ username, email, password });
           }}
-          style={styles.button}
+          style={{ width: "100%", ...styles.button }}
         >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
@@ -56,7 +65,7 @@ export function RegisterScreen({ navigation }) {
           onPress={() => {
             navigation.navigate("Login");
           }}
-          style={[styles.button, styles.buttonOutline]}
+          style={{ width: "100%", ...styles.buttonOutline }}
         >
           <Text style={styles.buttonOutlineText}>Login</Text>
         </TouchableOpacity>
@@ -64,7 +73,6 @@ export function RegisterScreen({ navigation }) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -74,13 +82,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
-		marginTop: 15,
+    marginTop: 15,
   },
-	headerText: {
-		textAlign: "left",
-		fontSize: 25,
-		fontWeight: "bold",
-	},
+  headerText: {
+    textAlign: "left",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
   input: {
     backgroundColor: "white",
     paddingHorizontal: 15,
